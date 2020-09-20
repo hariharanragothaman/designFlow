@@ -4,22 +4,9 @@ import json
 from .websocketServer import WebsocketServer
 from .mockFrontDoorBase import MockFrontDoorBase
 from threading import Thread
-from ....LoggerUtils.CastleLogger import get_logger
-
-"""
-Prototype: MockFrontDoor
-"""
-
+from CastleLogger import get_logger
 
 class MockFrontDoor(MockFrontDoorBase):
-    readyMsg = {"header": {
-        "device": "3f3ff152-3edd-49c0-960c-f9a4955eaede",
-        "resource": "/connectionReady",
-        "method": "NOTIFY",
-        "version": 1,
-        "reqID": -1,
-    }}
-
     def __init__(self, host='127.0.0.1', port=8084, logger=None):
         self.clienConnectedEvent = threading.Event()
         self.logger = logger or get_logger(__name__)
