@@ -26,7 +26,7 @@ class HashTable:
         hash_index = key % self.size
         return hash_index
 
-    def set(self, key, value) -> None:
+    def set(self, key, value) ->None:
         hash_index = self._hash_function(key)
         for item in self.table[hash_index]:
             if item.key == key:
