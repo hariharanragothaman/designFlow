@@ -1,24 +1,31 @@
 from abc import ABC
+from enum import Enum
+
 
 class VehicleType(Enum):
-    CAR, TRUCK, ELECTRIC, VAN, MOTORBIKE = 1,2,3,4,5
+    CAR, TRUCK, ELECTRIC, VAN, MOTORBIKE = 1, 2, 3, 4, 5
+
 
 class ParkingSpotType(Enum):
-    HANDICAPPED, COMPACT, LARGE, MOTORBIKE, ELECTRIC = 1,2,3,4,5
+    HANDICAPPED, COMPACT, LARGE, MOTORBIKE, ELECTRIC = 1, 2, 3, 4, 5
+
 
 class AccountStatus(Enum):
-    ACTIVE, BLOCKED, BANNED, COMPROMISED, ARCHIVED = 1,2,3,4,5
+    ACTIVE, BLOCKED, BANNED, COMPROMISED, ARCHIVED = 1, 2, 3, 4, 5
+
 
 class ParkingTicketStatus(Enum):
-    ACTIVE, PAID, LOST = 1,2,3
+    ACTIVE, PAID, LOST = 1, 2, 3
+
 
 # This is for the parking lot.
 class Address:
-    def __init__(self ,street, city, state, zip_code):
+    def __init__(self, street, city, state, zip_code):
         self.__street_address = street
         self.__city = city
         self.__state = state
         self.__zip_code = zip_code
+
 
 class Person:
     def __init__(self, name, address, email, phone):
@@ -33,6 +40,7 @@ Now, we have Account, Admin and Parking Assistant
 The 3 actors who interact with out system
 """
 
+
 class Account:
     def __init__(self, user_name, password, person, status=AccountStatus.ACTIVE):
         self.__user_name = user_name
@@ -40,9 +48,9 @@ class Account:
         self.__person = person
         self.__status = status
 
-
     def reset_password(self):
         pass
+
 
 class Admin(Account):
     def __init__(self, user_name, password, person, status=AccountStatus.ACTIVE):
@@ -61,6 +69,7 @@ class Admin(Account):
         pass
 
     # Similarly for entrance panel, exit panel etc.
+
 
 class ParkingAttendant(Account):
     def __init__(self, user_name, password, person, status=AccountStatus.ACTIVE):
@@ -88,18 +97,23 @@ class ParkingSpot(ABC):
         self.__vehicle = None
         free = True
 
+
 class HandicappedSpot(ParkingSpot):
     def __init__(self, number):
         super().__init__(number, ParkingSpotType.HANDICAPPED)
+
 
 class CompactSport(ParkingSpot):
     def __init__(self, number):
         super().__init__(number, ParkingSpotType.COMPACT)
 
+
 class MotorbikeSpot(ParkingSpot):
+    pass
 
 
 # Similarly for other ParkingSpots
+
 
 class Vehicle(ABC):
     def __init__(self, license_number, vehicle_type, ticket=None):
@@ -110,11 +124,14 @@ class Vehicle(ABC):
     def assign_ticket(self, ticket):
         self.__ticket = ticket
 
+
 class Car(Vehicle):
     def __init__(self, license_number, ticket=None):
         super().__init__(license_number, VehicleType.CAR, ticker)
 
+
 # Similarly for Van, Truck Vehicle etc.
+
 
 """
 Now there are 3 more classes remaining
@@ -126,6 +143,7 @@ Now there are 3 more classes remaining
 
 import threading
 
+
 class ParkingLot:
     """
     We are modelling using the Singleton pattern, so that one object
@@ -133,6 +151,7 @@ class ParkingLot:
 
     all Entrance panels will use this object to create new parking ticker
     """
+
     instance = None
 
     class Singleton:
@@ -177,26 +196,19 @@ class ParkingLot:
     def __getattr__(self, item):
         return getattr(self.instance, name)
 
-
     def get_new_parking_ticket(self, vehicle):
-        if self.is_full(vehicle.get_type())):
+        if self.is_full(vehicle.get_type()):
             raise Exception("Parking is Full")
         self.__lock.acquire()
 
         ticket = ParkingTicket()
-        vechicle.assign_ticket(ticket)
+        vehicle.assign_ticket(ticket)
         ticket.save_in_DB()
 
         self.__increment_spot_count(vehicle.get_type())
         self.__active_tickets.put(ticket.get_ticket_number(), ticket)
         self.__lock.release()
         return ticket
-
-
-
-
-
-
 
     def is_full(self, type):
         pass
@@ -215,9 +227,3 @@ class ParkingLot:
     def add_exit_panel(self, exit_panel):
         # Update DB
         None
-
-
-
-
-
-
