@@ -1,6 +1,6 @@
 """
 1. Create objects without having to specify the exact class
-2. A factory is an object for creating other objects
+2. A factory is an object for creating misc objects
 """
 
 class TamilLocalizer:

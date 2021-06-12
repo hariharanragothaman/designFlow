@@ -669,7 +669,7 @@ class FrontDoorAPIBase(object):
 
     def sinkGetAppStatus(self):
         """
-        Get BT Sink app status
+        Get BT Sink flask_app status
         :return:  sinkAppStatus [dict]  FrontDoor response json
         """
         sinkAppStatus = self.send("GET", "/bluetooth/sink/status")

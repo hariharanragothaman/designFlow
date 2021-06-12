@@ -86,7 +86,7 @@ class FrontDoorAPI(FrontDoorAPIBase):
     def check_before_open(self):
         """
         Actually checks if FrontDoor process has started listening on PORT:8082
-        Q: Is this dependent on other factors?
+        Q: Is this dependent on misc factors?
            The product takes some time download the server.crt from the cloud
            to start servicing the port.
            server.crt is in /mnt/nv/product-persistence

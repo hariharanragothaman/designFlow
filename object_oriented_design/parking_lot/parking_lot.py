@@ -112,7 +112,7 @@ class MotorbikeSpot(ParkingSpot):
     pass
 
 
-# Similarly for other ParkingSpots
+# Similarly for misc ParkingSpots
 
 
 class Vehicle(ABC):
